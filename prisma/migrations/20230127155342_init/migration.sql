@@ -37,7 +37,7 @@ CREATE TABLE "Update" (
 );
 
 -- CreateTable
-CREATE TABLE "UpdatePoint" (
+CREATE TABLE "UpdatePoint ("
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
