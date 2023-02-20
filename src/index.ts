@@ -11,11 +11,27 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors())
-// app.use('/', (req,res)=>{
-//     res.write('hello')
-//      res.end()
-// })
 app.use('/api',protect,router)
 app.post('/user', createUser)
 app.post('/login', loginUser)
 app.listen(3000)
+app.get("/", (req,res)=>{
+    res.json({messege:'hello'})
+});
+app.use((err,req,res,next)=>{
+    
+    switch(err.type){
+        case('input'):
+            res.status(400)
+            res.json({ message: "bad inpuit" });
+            break;
+        case('auth'):
+            res.status(401);
+            res.json({ message: "auth" });
+            break;
+        default:
+            res.json({ message: "defAULT" });
+           
+    }
+})
+export default app;

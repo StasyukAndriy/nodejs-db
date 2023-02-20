@@ -1,47 +1,46 @@
 import { Router } from "express";
 import { body } from "express-validator";
+import { createProduct, getProduct, getProducts, deleteProduct, updateProduct } from "./handlers/product";
+import { createUpdate, deleteUpdate, getUpdate, getUpdates, updateUpdate } from "./handlers/updates";
 import { handleInputErrors } from "./modules/middleware";
 const router = Router();
 /**
  * Product
  */
-router.get("/product",  (req, res) => {
-  res.json({ message: "product" });
-});
 
-router.get("/product/:id", (req, res) => {});
+router.get("/product", getProducts);
 
-router.post("/product",  body('name').isString(), handleInputErrors, (req, res) => {});
+router.get("/product/:id", getProduct);
 
-router.put("/product/:id", body('name').isString(), handleInputErrors, (req, res) => {
-  
-});
+router.post("/product",  body('name').isString(), handleInputErrors, createProduct);
 
-router.delete("/product/:id", (req, res) => {});
+router.put("/product/:id", body('name').isString(), handleInputErrors, updateProduct);
+
+router.delete("/product/:id", deleteProduct);
 
 /**
  * Update
  */
 
-router.get("/update", (req, res) => {});
+router.get("/update", getUpdates);
 
-router.get("/update/:id",
+router.get("/update/:id", getUpdate);
  
-  (req, res) => {});
 
 router.post("/update",
   body('title').exists().isString(),
   body('body').exists().isString(),
- (req, res) => {});
+  body('productId').exists().isString(),
+  createUpdate);
 
 router.put("/update/:id",
   body('title').optional().isString(),
   body('body').optional().isString(),
   body('status').isIn(['IN_PROGRESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']),
   body('version').optional().isString(),
- (req, res) => {});
+  updateUpdate);
 
-router.delete("/update/:id", (req, res) => {});
+router.delete("/update/:id", deleteUpdate);
 
 /**
  * UpdatePoint
